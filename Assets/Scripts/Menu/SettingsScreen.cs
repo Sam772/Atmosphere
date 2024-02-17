@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FileSelectScreen : MenuScreen {
-    
+public class SettingsScreen : MenuScreen {
+
     new void OnShow() {
 
     }
