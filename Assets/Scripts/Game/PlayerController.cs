@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    private readonly float _moveSpeed = 100f;
-    private readonly float _jumpForce = 50f;
+    private readonly float _moveSpeed = 10f;
+    private readonly float _jumpForce = 20f;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Rigidbody _rigidBody;
     private bool _isGrounded;
 
     void Start() {
-        rb.freezeRotation = true;
+        _rigidBody.freezeRotation = true;
     }
 
     void Update() {
@@ -21,10 +21,10 @@ public class PlayerController : MonoBehaviour {
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
         Vector3 moveVelocity = transform.TransformDirection(moveDirection) * _moveSpeed;
-        rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+        _rigidBody.velocity = new Vector3(moveVelocity.x, _rigidBody.velocity.y, moveVelocity.z);
 
         if (_isGrounded && Input.GetButtonDown("Jump")) {
-            rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _rigidBody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
 
         if (_isGrounded) {
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (_isGrounded) {
-            rb.AddForce(Physics.gravity * rb.mass);
+            _rigidBody.AddForce(Physics.gravity * _rigidBody.mass);
         }
     }
 }
