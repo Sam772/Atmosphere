@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private Rigidbody _rigidBody;
+    [SerializeField] private Transform _cameraTransform;
     private bool _isGrounded;
 
     void Start() {
@@ -21,6 +22,9 @@ public class PlayerController : MonoBehaviour {
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+        moveDirection = Quaternion.AngleAxis(_cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveDirection;
+
         Vector3 moveVelocity = transform.TransformDirection(moveDirection) * _moveSpeed;
 
         _rigidBody.velocity = new Vector3(moveVelocity.x, _rigidBody.velocity.y, moveVelocity.z);
