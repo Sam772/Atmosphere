@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour {
-    [SerializeField] private float _fallSpeed = 10f;
+    [SerializeField] private float _fallSpeed;
+    [SerializeField] private float _maxFallSpeed;
+    [SerializeField] private float _fallAcceleration;
     [SerializeField] private float _respawnDelay = 2f;
     [SerializeField] private Vector3 _originalPosition;
     [SerializeField] private Rigidbody _rigidBody;
@@ -26,10 +28,19 @@ public class FallingPlatform : MonoBehaviour {
         _rigidBody.useGravity = true;
         _rigidBody.isKinematic = false;
 
+        StartCoroutine(SlowFall());
+
         _rigidBody.velocity = Vector3.down * _fallSpeed;
         isFalling = true;
 
         Invoke("Respawn", _respawnDelay);
+    }
+
+    IEnumerator SlowFall() {
+        while (_rigidBody.velocity.y > -_maxFallSpeed) {
+            _rigidBody.velocity += Vector3.down * _fallAcceleration * Time.deltaTime;
+            yield return null;
+        }
     }
 
     void Respawn() {

@@ -8,6 +8,12 @@ public class MovingPlatform : MonoBehaviour {
     private bool _loop = true;
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
+    private Vector3 lastPosition;
+    private Vector3 movementDelta;
+
+    void Start() {
+        lastPosition = transform.position;
+    }
 
     void Update() {
         if (_wayPoints.Length == 0) return;
@@ -16,6 +22,9 @@ public class MovingPlatform : MonoBehaviour {
         float step = _moveSpeed * Time.deltaTime;
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+
+        movementDelta = transform.position - lastPosition;
+        lastPosition = transform.position;
 
         if (transform.position == targetPosition) {
             if (movingForward) {
@@ -43,6 +52,18 @@ public class MovingPlatform : MonoBehaviour {
                     }
                 }
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            other.transform.parent = transform;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Player")) {
+            other.transform.parent = null;
         }
     }
 }
