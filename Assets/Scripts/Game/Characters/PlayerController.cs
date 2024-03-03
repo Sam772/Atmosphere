@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour, ICharacter {
     // Player Stats
     [SerializeField] private int _diamonds;
     public int Diamonds => _diamonds;
+    [SerializeField] private int _lapis;
+    public int Lapis => _lapis;
     [SerializeField] private int _lives;
     public int Lives => _lives;
 
