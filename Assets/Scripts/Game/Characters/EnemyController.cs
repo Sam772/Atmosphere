@@ -109,6 +109,7 @@ public class EnemyController : MonoBehaviour, ICharacter {
         if (!_alreadyAttacked) {
 
             // Attack Code
+            Debug.Log("I am attacking");
 
             _alreadyAttacked = true;
             Invoke(nameof(ResetAttack), _timeBetweenAttacks);
