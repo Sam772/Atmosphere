@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lapis : MonoBehaviour {
+public class Lapis : MonoBehaviour, IEntity {
 
-    public int scoreValue = 10;
-    public AudioClip collectSound;
+    [SerializeField] private int _scoreValue = 10;
+    [SerializeField] private AudioClip _collectableSound;
 
-    private void OnTriggerEnter(Collider other) {
+    public void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            ScoreManager.instance.AddScore(scoreValue);
-            AudioSource.PlayClipAtPoint(collectSound, transform.position);
+            ScoreManager.instance.AddScore(_scoreValue);
+            CollectableSFX();
             Destroy(gameObject);
         }
+    }
+
+    public void CollectableSFX() {
+        AudioSource.PlayClipAtPoint(_collectableSound, transform.position);
     }
 }
 

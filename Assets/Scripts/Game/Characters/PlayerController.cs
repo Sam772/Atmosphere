@@ -11,6 +11,14 @@ public class PlayerController : MonoBehaviour, ICharacter {
     [SerializeField] private Transform _cameraTransform;
     private bool _isGrounded;
 
+    // Player Stats
+    [SerializeField] private int _diamonds;
+    public int Diamonds => _diamonds;
+    [SerializeField] private int _lives;
+    public int Lives => _lives;
+
+    // Move health into here later
+
     void Start() {
         _rigidBody.freezeRotation = true;
     }
