@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 
-public class FallingPlatform : MonoBehaviour {
+public class FallingPlatform : MonoBehaviour, IPlatform {
     [SerializeField] private float _fallSpeed;
     [SerializeField] private float _respawnDelay = 2f;
     [SerializeField] private Vector3 _originalPosition;
@@ -33,5 +33,9 @@ public class FallingPlatform : MonoBehaviour {
         CancelInvoke("MovePlatformDown");
         transform.position = _originalPosition;
         _isFalling = false;
+    }
+
+    public void Execute() {
+        
     }
 }

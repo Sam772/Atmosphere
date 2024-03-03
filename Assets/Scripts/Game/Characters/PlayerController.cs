@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, ICharacter {
     private readonly float _moveSpeed = 10f;
     private readonly float _jumpForce = 20f;
     [SerializeField] private Transform _groundCheck;
@@ -44,5 +44,9 @@ public class PlayerController : MonoBehaviour {
         if (_isGrounded) {
             _rigidBody.AddForce(Physics.gravity * _rigidBody.mass);
         }
+    }
+
+    public void Move() {
+        // Move stuff into here later
     }
 }

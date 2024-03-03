@@ -34,6 +34,11 @@ public class SoulSystem : MonoBehaviour {
                 _souls[i].enabled = false;
             }
         }
+
+        // FOR TESTING REFLECTION ONTO THE UI
+        if (Input.GetKeyDown(KeyCode.X)) {
+            _currentSouls -= 1;
+        }
     }
 
     public void TakeDamage() {

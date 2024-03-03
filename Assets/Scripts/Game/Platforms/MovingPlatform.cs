@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour {
+public class MovingPlatform : MonoBehaviour, IPlatform {
     [SerializeField] private Transform[] _wayPoints;
     [SerializeField] private float _moveSpeed = 5f;
     private bool _loop = true;
@@ -65,5 +65,9 @@ public class MovingPlatform : MonoBehaviour {
         if (other.CompareTag("Player")) {
             other.transform.parent = null;
         }
+    }
+
+    public void Execute() {
+        
     }
 }
