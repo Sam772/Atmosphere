@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.AI;
-using VSCodeEditor;
 
 public class EnemyController : MonoBehaviour, ICharacter {
     public float moveSpeed = 5f;
