@@ -8,15 +8,15 @@ public class InGameMenu : MonoBehaviour {
     [SerializeField] private InGameSettings _inGameSettings;
 
     void Start() {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void ShowSettings() {
-        SceneManager.LoadScene("Menu");
+        _inGameSettings.gameObject.SetActive(true);
     }
 
     public void BackToMainMenu() {
-        _inGameSettings.gameObject.SetActive(true);
+        SceneManager.LoadScene("Menu");
     }
 
     public void ExitGame() {
