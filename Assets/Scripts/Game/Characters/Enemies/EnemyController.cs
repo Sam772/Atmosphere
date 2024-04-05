@@ -5,12 +5,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour, ICharacter {
-    public float moveSpeed = 5f;
-    public float attackRange = 2f;
-    public float attackCooldown = 1f;
-    public int attackDamage = 10;
-
-    private Rigidbody rb;
+    [SerializeField] private float _moveSpeed;
+    //[SerializeField] private float _attackRange;
+    [SerializeField] private float _attackCooldown;
+    [SerializeField] private float attackDamage;
     private bool canAttack = true;
 
 
@@ -98,9 +96,13 @@ public class EnemyController : MonoBehaviour, ICharacter {
 
     public void ChasePlayer() {
         _agent.SetDestination(_player.position);
+
+        Debug.Log("I can see the player.");
     }
 
     public void AttackPlayer() {
+        
+        // idk these two are causing the enemies to move?
         _agent.SetDestination(transform.position);
 
         transform.LookAt(_player);
@@ -108,7 +110,7 @@ public class EnemyController : MonoBehaviour, ICharacter {
         if (!_alreadyAttacked) {
 
             // Attack Code
-            Debug.Log("I am attacking");
+            Debug.Log("I am going to attack.");
 
             _alreadyAttacked = true;
             Invoke(nameof(ResetAttack), _timeBetweenAttacks);

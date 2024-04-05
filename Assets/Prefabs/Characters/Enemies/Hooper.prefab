@@ -210,9 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8774a63e00c23a64a8ab0e4c5a6f1695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
-  attackRange: 2
-  attackCooldown: 1
+  _moveSpeed: 20
+  _attackCooldown: 1
   attackDamage: 10
   _agent: {fileID: 3186896022866216868}
   _player: {fileID: 0}
