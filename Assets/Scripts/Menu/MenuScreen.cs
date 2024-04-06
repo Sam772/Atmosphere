@@ -10,13 +10,13 @@ public class MenuScreen : MonoBehaviour {
     }
 
     public void Show() {
-        gameObject.SetActive(true);
         OnShow();
+        gameObject.SetActive(true);
     }
 
     public void Hide() {
-        gameObject.SetActive(false);
         OnHide();
+        gameObject.SetActive(false);
     }
 
 

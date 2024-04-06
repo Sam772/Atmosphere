@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,10 @@ public class Menu : MonoBehaviour {
     [SerializeField] private SettingsScreen _settingsScreen;
     [SerializeField] private LevelSelectScreen _levelSelectScreen;
     private MenuScreen _currentScreen;
+    [SerializeField] private AudioSource _audioSource;
 
     private void Awake() {
-        ShowStartScreen();
+        ShowInitialStartScreen();
     }
 
     private void Start() {
@@ -22,11 +24,21 @@ public class Menu : MonoBehaviour {
         _levelSelectScreen.Setup(this);
     }
 
-    public void ShowStartScreen() => ShowScreen(_startScreen);
-    public void ShowFileSelectScreen() => ShowScreen(_fileSelectScreen);
-    public void ShowMainMenuScreen() => ShowScreen(_mainMenuScreen);
-    public void ShowSettingsScreen() => ShowScreen(_settingsScreen);
-    public void ShowLevelSelectScreen() => ShowScreen(_levelSelectScreen);
+
+    public IEnumerator PlayButtonSFX(Action callback) {
+        _audioSource.Play();
+
+        while (_audioSource.isPlaying) yield return null;
+
+        callback?.Invoke();
+    }
+
+    public void ShowInitialStartScreen() => ShowScreen(_startScreen);
+    public void ShowBackStartScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_startScreen)));
+    public void ShowFileSelectScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_fileSelectScreen)));
+    public void ShowMainMenuScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_mainMenuScreen)));
+    public void ShowSettingsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_settingsScreen)));
+    public void ShowLevelSelectScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_levelSelectScreen)));
 
     private void ShowScreen(MenuScreen screen) {
         if (_currentScreen == screen) return;
