@@ -39,6 +39,7 @@ public class PlayerUI : MonoBehaviour {
         // Toggle the visibility of the in-game menu
         bool isVisible = !_inGameMenu.gameObject.activeSelf;
         _inGameMenu.gameObject.SetActive(isVisible);
+        _inGameMenu.HideSettings();
 
         // If the menu is visible, pause the game
         if (isVisible) {

@@ -15,6 +15,10 @@ public class InGameMenu : MonoBehaviour {
         _inGameSettings.gameObject.SetActive(true);
     }
 
+    public void HideSettings() {
+        _inGameSettings.gameObject.SetActive(false);
+    }
+
     public void BackToMainMenu() {
         SceneManager.LoadScene("Menu");
     }
