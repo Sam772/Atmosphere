@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, ICharacter {
     private readonly float _moveSpeed = 10f;
-    private readonly float _jumpForce = 15f;
+    private readonly float _jumpForce = 14f;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private Rigidbody _rigidBody;
