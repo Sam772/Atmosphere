@@ -28601,9 +28601,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328170468}
-        m_TargetAssemblyTypeName: NextLevelUI, Assembly-CSharp
-        m_MethodName: SelectLevelTwo
+      - m_Target: {fileID: 464508244}
+        m_TargetAssemblyTypeName: InGameMenu, Assembly-CSharp
+        m_MethodName: ShowSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

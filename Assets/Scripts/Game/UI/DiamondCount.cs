@@ -5,6 +5,7 @@ using TMPro;
 
 public class DiamondCount : MonoBehaviour {
     [SerializeField] private TMP_Text _diamondText;
+    [SerializeField] private NextLevelUI _nextLevelUI;
     private int _count;
 
     void OnEnable() => Diamond.OnCollectedDiamond += OnCollectibleCollected;
@@ -12,5 +13,6 @@ public class DiamondCount : MonoBehaviour {
 
     void OnCollectibleCollected() {
         _diamondText.text = "x" + (++_count).ToString();
+        _nextLevelUI.ShowNextLevelUI();
     }
 }
