@@ -6,8 +6,8 @@ using TMPro;
 
 public class YourStatsScreen : MenuScreen {
 
-    [SerializeField] private TMP_Text _diamondStats;
-    [SerializeField] private TMP_Text _lapisStats;
+    [SerializeField] private Text _diamondStats;
+    [SerializeField] private Text _lapisStats;
 
     protected override void OnShow() {
         base.OnShow();

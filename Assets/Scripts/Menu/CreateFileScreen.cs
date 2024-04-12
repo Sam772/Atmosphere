@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CreateFileScreen  : MenuScreen {
 
-    public TMP_InputField saveName;
+    public InputField saveName;
     public SaveFileName SaveFileName;
 
     public void OnSave() {
