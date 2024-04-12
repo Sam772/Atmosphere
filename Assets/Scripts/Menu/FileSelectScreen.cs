@@ -13,7 +13,7 @@ public class FileSelectScreen : MenuScreen {
     [SerializeField] private Menu _menu;
     public SaveFileName SaveFileName;
     
-    public void GetLoadFiles() {
+    public void LoadSaveFiles() {
         if (!Directory.Exists(Application.persistentDataPath + "/saves/")) {
             Directory.CreateDirectory(Application.persistentDataPath + "/saves/");
         }
@@ -30,22 +30,31 @@ public class FileSelectScreen : MenuScreen {
         Vector3 buttonPosition = buttonContainer.position;
         float yOffset = -20f;
 
-        // iterate through array of files and display on UI
         foreach (string filePath in saveFiles) {
             string fileName = Path.GetFileNameWithoutExtension(filePath);
 
             Button button = Instantiate(loadButtonPrefab, buttonContainer);
 
+            button.gameObject.SetActive(true);
+
             button.transform.position = buttonPosition;
 
             buttonPosition += new Vector3(0f, yOffset, 0f);
 
-            button.GetComponentInChildren<TMP_Text>().text = fileName;
+            button.GetComponentInChildren<Text>().text = fileName;
 
-            // Attach click event handler
-            button.onClick.AddListener(() => ButtonPressed(button.GetComponentInChildren<TMP_Text>().text));
+            button.onClick.AddListener(() => ButtonPressed(button.GetComponentInChildren<Text>().text));
 
-            Debug.Log(button.GetComponentInChildren<TMP_Text>().text);
+            Debug.Log(button.GetComponentInChildren<Text>().text);
+        }
+    }
+
+    public void RemoveFilesFromUI() {
+        foreach (Transform child in buttonContainer) {
+            if (child.GetComponentInChildren<Button>()) {
+                Destroy(child.gameObject);
+                break;
+            }
         }
     }
 
@@ -60,16 +69,13 @@ public class FileSelectScreen : MenuScreen {
         Debug.Log("Level 3 State:" + SaveData.Current.Level3Unlocked);
     }
 
-    void OnLoadButtonClick(string filePath) {
-        // Implement logic to load the selected save file using the filePath
-        Debug.Log("Loading file: " + filePath);
+    protected override void OnShow() {
+        base.OnShow();
+        LoadSaveFiles();
     }
 
-    public new void OnShow() {
-
-    }
-
-    public new void OnHide() {
-
+    protected override void OnHide() {
+        base.OnHide();
+        RemoveFilesFromUI();
     }
 }
