@@ -11,6 +11,7 @@ public class FileSelectScreen : MenuScreen {
     public Transform buttonContainer;
     public Scrollbar scrollbar;
     [SerializeField] private Menu _menu;
+    public SaveFileName SaveFileName;
     
     public void GetLoadFiles() {
         if (!Directory.Exists(Application.persistentDataPath + "/saves/")) {
@@ -42,8 +43,21 @@ public class FileSelectScreen : MenuScreen {
             button.GetComponentInChildren<TMP_Text>().text = fileName;
 
             // Attach click event handler
-            button.onClick.AddListener(() => _menu.ShowMainMenuScreen());
+            button.onClick.AddListener(() => ButtonPressed(button.GetComponentInChildren<TMP_Text>().text));
+
+            Debug.Log(button.GetComponentInChildren<TMP_Text>().text);
         }
+    }
+
+    public void ButtonPressed(string filename) {
+        SaveFileName.saveFileName = filename;
+        SaveData.Current = (SaveData) SerializationManager.Load(Application.persistentDataPath + "/saves/" + filename + ".save");
+        _menu.ShowMainMenuScreen();
+
+        Debug.Log("Lapis: " + SaveData.Current.Lapis);
+        Debug.Log("Diamonds: " + SaveData.Current.Diamonds);
+        Debug.Log("Level 2 State:" + SaveData.Current.Level2Unlocked);
+        Debug.Log("Level 3 State:" + SaveData.Current.Level3Unlocked);
     }
 
     void OnLoadButtonClick(string filePath) {

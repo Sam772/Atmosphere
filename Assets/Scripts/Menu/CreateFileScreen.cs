@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class CreateFileScreen  : MenuScreen {
 
     public TMP_InputField saveName;
+    public SaveFileName SaveFileName;
 
     public void OnSave() {
         SerializationManager.Save(saveName.text, SaveData.Current);
+        SaveFileName.saveFileName = saveName.text;
+
         Debug.Log("File Saved: " + SaveData.Current);
         Debug.Log("The save name of this file is: " + saveName.text);
     }

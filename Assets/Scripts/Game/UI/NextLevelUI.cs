@@ -41,6 +41,15 @@ public class NextLevelUI : MonoBehaviour {
     public void SelectLevelTwo() {
         SceneManager.LoadScene("Level2");
         SaveData.Current.Level2Unlocked = true;
+
+        SaveFileName saveFileNameHolder = FindObjectOfType<SaveFileName>();
+
+        if (saveFileNameHolder != null) {
+            string saveFileName = saveFileNameHolder.saveFileName;
+            Debug.Log("Save file name: " + saveFileName);
+
+            SerializationManager.Save(saveFileName, SaveData.Current);
+        }
     }
     
     public void SelectLevelThree() {

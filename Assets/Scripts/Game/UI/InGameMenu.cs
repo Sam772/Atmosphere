@@ -25,17 +25,36 @@ public class InGameMenu : MonoBehaviour {
     }
 
     public void CreateSaveData() {
-        SerializationManager.Save("mysavefile", SaveData.Current);
-        Debug.Log("File Saved: " + SaveData.Current);
-        Debug.Log("Lapis: " + SaveData.Current.Lapis);
+
+        SaveFileName saveFileNameHolder = FindObjectOfType<SaveFileName>();
+
+        if (saveFileNameHolder != null) {
+            string saveFileName = saveFileNameHolder.saveFileName;
+            Debug.Log("Save file name: " + saveFileName);
+
+            SerializationManager.Save(saveFileName, SaveData.Current);
+            Debug.Log("File Saved: " + SaveData.Current);
+            Debug.Log("Lapis: " + SaveData.Current.Lapis);
+        }
     }
 
     public void LoadSaveData() {
-        SaveData.Current = (SaveData) SerializationManager.Load(Application.persistentDataPath + "/saves/mysavefile.save");
-        Debug.Log("File Located: " + Application.persistentDataPath);
-        Debug.Log("Lapis: " + SaveData.Current.Lapis);
 
-        _playerUI.SetLapisText("x" + SaveData.Current.Lapis.ToString());
+        SaveFileName saveFileNameHolder = FindObjectOfType<SaveFileName>();
+
+        if (saveFileNameHolder != null) {
+            string saveFileName = saveFileNameHolder.saveFileName;
+            Debug.Log("Save file name: " + saveFileName);
+
+            SaveData.Current = (SaveData) SerializationManager.Load(Application.persistentDataPath + "/saves/" + saveFileName + ".save");
+            Debug.Log("File Located: " + Application.persistentDataPath);
+
+            Debug.Log("Lapis: " + SaveData.Current.Lapis);
+            Debug.Log("L2 Unlock State: " + SaveData.Current.Level2Unlocked);
+            Debug.Log("L3 Unlock State: " + SaveData.Current.Level3Unlocked);
+
+            _playerUI.SetLapisText("x" + SaveData.Current.Lapis.ToString());
+        }
     }
 
     public void ExitGame() {
