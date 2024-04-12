@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour {
     [SerializeField] private CreateFileScreen _createFileScreen;
     [SerializeField] private FileSelectScreen _fileSelectScreen;
     [SerializeField] private MainMenuScreen _mainMenuScreen;
+    [SerializeField] private YourStatsScreen _yourStatsScreen;
     [SerializeField] private SettingsScreen _settingsScreen;
     [SerializeField] private LevelSelectScreen _levelSelectScreen;
     private MenuScreen _currentScreen;
@@ -22,6 +23,7 @@ public class Menu : MonoBehaviour {
         _createFileScreen.Setup(this);
         _fileSelectScreen.Setup(this);
         _mainMenuScreen.Setup(this);
+        _yourStatsScreen.Setup(this);
         _settingsScreen.Setup(this);
         _levelSelectScreen.Setup(this);
     }
@@ -40,6 +42,7 @@ public class Menu : MonoBehaviour {
     public void ShowCreateFileScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_createFileScreen)));
     public void ShowFileSelectScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_fileSelectScreen)));
     public void ShowMainMenuScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_mainMenuScreen)));
+    public void ShowYourStatsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_yourStatsScreen)));
     public void ShowSettingsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_settingsScreen)));
     public void ShowLevelSelectScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_levelSelectScreen)));
 
@@ -50,6 +53,7 @@ public class Menu : MonoBehaviour {
         if (screen != _createFileScreen) _createFileScreen.Hide();
         if (screen != _fileSelectScreen) _fileSelectScreen.Hide();
         if (screen != _mainMenuScreen) _mainMenuScreen.Hide();
+        if (screen != _yourStatsScreen) _yourStatsScreen.Hide();
         if (screen != _settingsScreen) _settingsScreen.Hide();
         if (screen != _levelSelectScreen) _levelSelectScreen.Hide();
 
