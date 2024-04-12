@@ -8,10 +8,15 @@ public class LapisCount : MonoBehaviour {
     [SerializeField] private TMP_Text _lapisText;
     private int _count;
 
-    void OnEnable() => Lapis.OnCollectedLapis += OnCollectibleCollected;
-    void OnDisable() => Lapis.OnCollectedLapis -= OnCollectibleCollected;
+    void OnEnable() {
+        Lapis.OnCollectedLapis += OnCollectibleCollected;
+    }
+    void OnDisable() {
+        Lapis.OnCollectedLapis -= OnCollectibleCollected;
+    }
 
     void OnCollectibleCollected() {
-        _lapisText.text = "x" + (++_count).ToString();
+        SaveData.Current.Lapis += 1;
+        _lapisText.text = "x" + SaveData.Current.Lapis.ToString();
     }
 }

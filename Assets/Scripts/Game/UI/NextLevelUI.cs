@@ -14,6 +14,10 @@ public class NextLevelUI : MonoBehaviour {
         //ToggleMenu();
     }
 
+    public void CreateSaveData() {
+        SerializationManager.Save("savefile", SaveData.Current);
+    }
+
     public void ToggleMenu() {
         // Toggle the visibility of the in-game menu
         bool isVisible = !gameObject.activeSelf;

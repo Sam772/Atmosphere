@@ -11,13 +11,9 @@ public class PlayerController : MonoBehaviour, ICharacter {
     [SerializeField] private Transform _cameraTransform;
     private bool _isGrounded;
 
-    // Player Stats
-    [SerializeField] private int _diamonds;
-    public int Diamonds => _diamonds;
-    [SerializeField] private int _lapis;
-    public int Lapis => _lapis;
-    [SerializeField] private int _lives;
-    public int Lives => _lives;
+    public int Diamonds => SaveData.Current.Diamonds;
+    public int Lapis => SaveData.Current.Lapis;
+    public int Lives => SaveData.Current.Lives;
 
     // Move health into here later
 
@@ -59,4 +55,5 @@ public class PlayerController : MonoBehaviour, ICharacter {
     public void Move() {
         // Move stuff into here later
     }
+
 }

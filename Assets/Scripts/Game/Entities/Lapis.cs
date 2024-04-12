@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Lapis : Collectable, IEntity {
-
-    [SerializeField] private int _scoreValue = 10;
     [SerializeField] private AudioClip _collectableSound;
     public static event Action OnCollectedLapis;
 

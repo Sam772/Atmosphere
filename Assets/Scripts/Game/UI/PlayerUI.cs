@@ -28,7 +28,7 @@ public class PlayerUI : MonoBehaviour {
         _diamondsText.text = diamondsText;
     }
     public void SetLapisText(string lapisText) {
-        _diamondsText.text = lapisText;
+        _lapisText.text = lapisText;
     }
 
     public void SetLivesText(string livesText) {
