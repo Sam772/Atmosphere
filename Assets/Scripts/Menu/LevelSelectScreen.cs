@@ -3,10 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSelectScreen : MenuScreen {
 
     [SerializeField] private AudioSource _audioSource;
+
+    [SerializeField] private Button _levelTwoButton;
+    [SerializeField] private Button _levelThreeButton;
+
+    void Start() {
+        SetLevelTwoButtonState();
+        SetLevelThreeButtonState();
+    }
+
+    public void SetLevelTwoButtonState() {
+        if (SaveData.Current.Level2Unlocked == false) {
+            _levelTwoButton.gameObject.SetActive(false);
+        } else {
+            _levelTwoButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void SetLevelThreeButtonState() {
+        if (SaveData.Current.Level3Unlocked == false) {
+            _levelThreeButton.gameObject.SetActive(false);
+        } else {
+            _levelThreeButton.gameObject.SetActive(true);
+        }
+    }
 
     public IEnumerator PlayButtonSFX(Action callback) {
         _audioSource.Play();

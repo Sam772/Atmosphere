@@ -38,11 +38,23 @@ public class NextLevelUI : MonoBehaviour {
 
     public void SelectLevelOne() => SceneManager.LoadScene("Level1");
 
-    public void SelectLevelTwo() => SceneManager.LoadScene("Level2");
+    public void SelectLevelTwo() {
+        SceneManager.LoadScene("Level2");
+        SaveData.Current.Level2Unlocked = true;
+    }
     
-    public void SelectLevelThree() => SceneManager.LoadScene("Level3");
+    public void SelectLevelThree() {
+        SceneManager.LoadScene("Level3");
+        SaveData.Current.Level3Unlocked = true;
+    }
 
-    public void SelectLevelFour() => SceneManager.LoadScene("Level4");
+    public void SelectLevelFour() {
+        SceneManager.LoadScene("Level4");
+        SaveData.Current.Level4Unlocked = true;
+    }
 
-    public void SelectLevelFive() => SceneManager.LoadScene("Level5");
+    public void SelectLevelFive() {
+        SceneManager.LoadScene("Level5");
+        SaveData.Current.Level5Unlocked = true;
+    }
 }

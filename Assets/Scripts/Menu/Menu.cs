@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour {
     [SerializeField] private StartScreen _startScreen;
+    [SerializeField] private CreateFileScreen _createFileScreen;
     [SerializeField] private FileSelectScreen _fileSelectScreen;
     [SerializeField] private MainMenuScreen _mainMenuScreen;
     [SerializeField] private SettingsScreen _settingsScreen;
@@ -18,6 +19,7 @@ public class Menu : MonoBehaviour {
 
     private void Start() {
         _startScreen.Setup(this);
+        _createFileScreen.Setup(this);
         _fileSelectScreen.Setup(this);
         _mainMenuScreen.Setup(this);
         _settingsScreen.Setup(this);
@@ -35,6 +37,7 @@ public class Menu : MonoBehaviour {
 
     public void ShowInitialStartScreen() => ShowScreen(_startScreen);
     public void ShowBackStartScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_startScreen)));
+    public void ShowCreateFileScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_createFileScreen)));
     public void ShowFileSelectScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_fileSelectScreen)));
     public void ShowMainMenuScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_mainMenuScreen)));
     public void ShowSettingsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_settingsScreen)));
@@ -44,6 +47,7 @@ public class Menu : MonoBehaviour {
         if (_currentScreen == screen) return;
 
         if (screen != _startScreen) _startScreen.Hide();
+        if (screen != _createFileScreen) _createFileScreen.Hide();
         if (screen != _fileSelectScreen) _fileSelectScreen.Hide();
         if (screen != _mainMenuScreen) _mainMenuScreen.Hide();
         if (screen != _settingsScreen) _settingsScreen.Hide();

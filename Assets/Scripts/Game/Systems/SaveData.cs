@@ -22,4 +22,8 @@ public class SaveData {
     public int Diamonds;
     public int Lapis;
     public int Lives;
+    public bool Level2Unlocked = false;
+    public bool Level3Unlocked = false;
+    public bool Level4Unlocked = false;
+    public bool Level5Unlocked = false;
 }
