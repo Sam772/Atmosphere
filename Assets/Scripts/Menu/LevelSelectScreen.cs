@@ -18,10 +18,6 @@ public class LevelSelectScreen : MenuScreen {
     [SerializeField] private Image _levelFiveUnlock;
     [SerializeField] private Text _errorText;
 
-    void Start() {
-        
-    }
-
     public void SelectLevelOneButtonPressed() => StartCoroutine(PlayButtonSFX(() => SelectLevelOne()));
 
     public void SelectLevelOne() => SceneManager.LoadScene("Level1");
@@ -124,6 +120,7 @@ public class LevelSelectScreen : MenuScreen {
     
     protected override void OnShow() {
         base.OnShow();
+        _errorText.text = "";
         SetLevelTwoButtonState();
         SetLevelThreeButtonState();
         SetLevelFourButtonState();
