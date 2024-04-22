@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour {
-    [SerializeField] private TMP_Text _diamondsText;
-    [SerializeField] private TMP_Text _lapisText;
-    [SerializeField] private TMP_Text _livesText;
+    [SerializeField] private Text _diamondsText;
+    [SerializeField] private Text _lapisText;
+    [SerializeField] private Text _livesText;
     [SerializeField] private InGameMenu _inGameMenu;
 
     void Start() {
