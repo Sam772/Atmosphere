@@ -11,11 +11,17 @@ public class PlayerUI : MonoBehaviour {
     [SerializeField] private InGameMenu _inGameMenu;
 
     void Start() {
-        SetDiamondsText("x0");
-        SetLapisText("x0");
-        SetLivesText("x3");
+        GetPlayerData();
         
         _inGameMenu.gameObject.SetActive(false);
+    }
+
+    public void GetPlayerData() {
+        SetLapisText("x" + SaveData.Current.Lapis.ToString());
+        SetDiamondsText("x" + SaveData.Current.Diamonds.ToString());
+        SetLivesText("x3");
+
+        //SetLivesText("x" + SaveData.Current.Lives.ToString());
     }
 
     void Update() {
@@ -27,6 +33,7 @@ public class PlayerUI : MonoBehaviour {
     public void SetDiamondsText(string diamondsText) {
         _diamondsText.text = diamondsText;
     }
+    
     public void SetLapisText(string lapisText) {
         _lapisText.text = lapisText;
     }

@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LapisCount : MonoBehaviour {
-    [SerializeField] private TMP_Text _lapisText;
+    [SerializeField] private Text _lapisText;
     private int _count;
 
     void OnEnable() {
         Lapis.OnCollectedLapis += OnCollectibleCollected;
     }
+
     void OnDisable() {
         Lapis.OnCollectedLapis -= OnCollectibleCollected;
     }

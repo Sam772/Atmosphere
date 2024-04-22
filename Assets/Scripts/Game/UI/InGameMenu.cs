@@ -50,10 +50,12 @@ public class InGameMenu : MonoBehaviour {
             Debug.Log("File Located: " + Application.persistentDataPath);
 
             Debug.Log("Lapis: " + SaveData.Current.Lapis);
+            Debug.Log("Diamonds: " + SaveData.Current.Diamonds);
             Debug.Log("L2 Unlock State: " + SaveData.Current.Level2Unlocked);
             Debug.Log("L3 Unlock State: " + SaveData.Current.Level3Unlocked);
 
             _playerUI.SetLapisText("x" + SaveData.Current.Lapis.ToString());
+            _playerUI.SetDiamondsText("x" + SaveData.Current.Diamonds.ToString());
         }
     }
 
