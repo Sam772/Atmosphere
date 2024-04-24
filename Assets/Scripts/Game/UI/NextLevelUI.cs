@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class NextLevelUI : MonoBehaviour {
+
+    [SerializeField] private Text _levelCompletionText;
 
     void Start() {
         gameObject.SetActive(false);
@@ -12,9 +15,34 @@ public class NextLevelUI : MonoBehaviour {
     public void ShowNextLevelUI() {
         gameObject.SetActive(true);
         //ToggleMenu();
+
+        if (SceneManager.GetActiveScene().name == "Level1") {
+            Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+            _levelCompletionText.text = SceneManager.GetActiveScene().name + " complete";
+            SaveData.Current.Level1Complete = true;
+            OverwriteSaveData();
+        } else if (SceneManager.GetActiveScene().name == "Level2") {
+            Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+            SaveData.Current.Level2Complete = true;
+            OverwriteSaveData();
+        } else if (SceneManager.GetActiveScene().name == "Level3") {
+            Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+            SaveData.Current.Level3Complete = true;
+            OverwriteSaveData();
+        } else if (SceneManager.GetActiveScene().name == "Level4") {
+            Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+            SaveData.Current.Level4Complete = true;
+            OverwriteSaveData();
+        } else if (SceneManager.GetActiveScene().name == "Level5") {
+            Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+            SaveData.Current.Level5Complete = true;
+            OverwriteSaveData();
+        } else {
+            Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
+        }
     }
 
-    public void CreateSaveData() {
+    public void OverwriteSaveData() {
         //SerializationManager.Save("savefile", SaveData.Current);
 
         SaveFileName saveFileNameHolder = FindObjectOfType<SaveFileName>();

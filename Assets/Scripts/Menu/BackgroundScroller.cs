@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,6 @@ public class BackgroundScroller : MonoBehaviour {
     [SerializeField] private float _y;
 
     void Update() {
-        _backgroundImage.uvRect = new Rect(_backgroundImage.uvRect.position + new Vector2(_x, _y) * Time.deltaTime, _backgroundImage.uvRect.size);
+        _backgroundImage.uvRect = new Rect(_backgroundImage.uvRect.position + new Vector2(_x, _y) * Math.Max(Time.deltaTime, .005f), _backgroundImage.uvRect.size);
     }
 }

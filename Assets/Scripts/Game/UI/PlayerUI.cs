@@ -19,7 +19,7 @@ public class PlayerUI : MonoBehaviour {
     public void GetPlayerData() {
         SetLapisText("x" + SaveData.Current.Lapis.ToString());
         SetDiamondsText("x" + SaveData.Current.Diamonds.ToString());
-        SetLivesText("x3");
+        SetLivesText("x" + SaveData.Current.Lives.ToString());
 
         //SetLivesText("x" + SaveData.Current.Lives.ToString());
     }

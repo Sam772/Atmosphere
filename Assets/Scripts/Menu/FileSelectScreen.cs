@@ -65,8 +65,11 @@ public class FileSelectScreen : MenuScreen {
 
         Debug.Log("Lapis: " + SaveData.Current.Lapis);
         Debug.Log("Diamonds: " + SaveData.Current.Diamonds);
-        Debug.Log("Level 2 State:" + SaveData.Current.Level2Unlocked);
-        Debug.Log("Level 3 State:" + SaveData.Current.Level3Unlocked);
+
+        Debug.Log("Level 1 Completion State:" + SaveData.Current.Level1Complete);
+
+        // Debug.Log("Level 2 State:" + SaveData.Current.Level2Unlocked);
+        // Debug.Log("Level 3 State:" + SaveData.Current.Level3Unlocked);
     }
 
     protected override void OnShow() {

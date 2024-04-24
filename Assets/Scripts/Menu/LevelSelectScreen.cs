@@ -8,29 +8,51 @@ using UnityEngine.UI;
 public class LevelSelectScreen : MenuScreen {
 
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private Image _levelOneUnlock;
+    [SerializeField] private Image _levelOneComplete;
     [SerializeField] private Image _levelTwoLock;
     [SerializeField] private Image _levelTwoUnlock;
+    [SerializeField] private Image _levelTwoComplete;
     [SerializeField] private Image _levelThreeLock;
     [SerializeField] private Image _levelThreeUnlock;
+    [SerializeField] private Image _levelThreeComplete;
     [SerializeField] private Image _levelFourLock;
     [SerializeField] private Image _levelFourUnlock;
+    [SerializeField] private Image _levelFourComplete;
     [SerializeField] private Image _levelFiveLock;
     [SerializeField] private Image _levelFiveUnlock;
+    [SerializeField] private Image _levelFiveComplete;
     [SerializeField] private Text _errorText;
 
     public void SelectLevelOneButtonPressed() => StartCoroutine(PlayButtonSFX(() => SelectLevelOne()));
 
+    public void SetLevelOneButtonState() {
+        if (SaveData.Current.Level1Complete == false) {
+            _levelOneUnlock.gameObject.SetActive(true);
+            _levelOneComplete.gameObject.SetActive(false);
+        } else {
+            _levelOneUnlock.gameObject.SetActive(false);
+            _levelOneComplete.gameObject.SetActive(true);
+        }
+    }
+
     public void SelectLevelOne() => SceneManager.LoadScene("Level1");
 
     public void SetLevelTwoButtonState() {
-        if (SaveData.Current.Level2Unlocked == false) {
+        if (SaveData.Current.Level2Unlocked == true && SaveData.Current.Level2Complete == true) {
             //_levelTwoButton.gameObject.SetActive(false);
-            _levelTwoLock.gameObject.SetActive(true);
+            _levelTwoComplete.gameObject.SetActive(true);
+            _levelTwoLock.gameObject.SetActive(false);
             _levelTwoUnlock.gameObject.SetActive(false);
-        } else {
+        } else if (SaveData.Current.Level2Unlocked == true && SaveData.Current.Level2Complete == false) {
            //_levelTwoButton.gameObject.SetActive(true);
+            _levelTwoComplete.gameObject.SetActive(false);
             _levelTwoLock.gameObject.SetActive(false);
             _levelTwoUnlock.gameObject.SetActive(true);
+        } else {
+            _levelTwoComplete.gameObject.SetActive(false);
+            _levelTwoLock.gameObject.SetActive(true);
+            _levelTwoUnlock.gameObject.SetActive(false);
         }
     }
 
@@ -45,14 +67,20 @@ public class LevelSelectScreen : MenuScreen {
     }
 
     public void SetLevelThreeButtonState() {
-        if (SaveData.Current.Level3Unlocked == false) {
-            //_levelThreeButton.gameObject.SetActive(false);
-            _levelThreeLock.gameObject.SetActive(true);
+        if (SaveData.Current.Level3Unlocked == true && SaveData.Current.Level3Complete == true) {
+            //_levelTwoButton.gameObject.SetActive(false);
+            _levelThreeComplete.gameObject.SetActive(true);
+            _levelThreeLock.gameObject.SetActive(false);
             _levelThreeUnlock.gameObject.SetActive(false);
-        } else {
-            //_levelThreeButton.gameObject.SetActive(true);
+        } else if (SaveData.Current.Level3Unlocked == true && SaveData.Current.Level3Complete == false) {
+           //_levelTwoButton.gameObject.SetActive(true);
+            _levelThreeComplete.gameObject.SetActive(false);
             _levelThreeLock.gameObject.SetActive(false);
             _levelThreeUnlock.gameObject.SetActive(true);
+        } else {
+            _levelThreeComplete.gameObject.SetActive(false);
+            _levelThreeLock.gameObject.SetActive(true);
+            _levelThreeUnlock.gameObject.SetActive(false);
         }
     }
 
@@ -121,6 +149,7 @@ public class LevelSelectScreen : MenuScreen {
     protected override void OnShow() {
         base.OnShow();
         _errorText.text = "";
+        SetLevelOneButtonState();
         SetLevelTwoButtonState();
         SetLevelThreeButtonState();
         SetLevelFourButtonState();
