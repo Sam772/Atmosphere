@@ -44,6 +44,16 @@ public class SerializationManager : MonoBehaviour {
         }
     }
 
+    public static void Delete(string path) {
+        if (File.Exists(path)) {
+            File.Delete(path);
+            Debug.Log("File deleted: " + path);
+        }
+        else {
+            Debug.LogWarning("File not found: " + path);
+        }
+    }
+
     public static BinaryFormatter GetBinaryFormatter() {
         BinaryFormatter formatter = new BinaryFormatter();
 
