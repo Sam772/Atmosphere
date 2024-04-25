@@ -13,6 +13,10 @@ public class PlayerUI : MonoBehaviour {
     void Start() {
         GetPlayerData();
         
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        
         _inGameMenu.gameObject.SetActive(false);
     }
 
@@ -20,8 +24,6 @@ public class PlayerUI : MonoBehaviour {
         SetLapisText("x" + SaveData.Current.Lapis.ToString());
         SetDiamondsText("x" + SaveData.Current.Diamonds.ToString());
         SetLivesText("x" + SaveData.Current.Lives.ToString());
-
-        //SetLivesText("x" + SaveData.Current.Lives.ToString());
     }
 
     void Update() {
@@ -43,21 +45,19 @@ public class PlayerUI : MonoBehaviour {
     }
 
     public void ToggleMenu() {
-        // Toggle the visibility of the in-game menu
         bool isVisible = !_inGameMenu.gameObject.activeSelf;
         _inGameMenu.gameObject.SetActive(isVisible);
         _inGameMenu.HideSettings();
 
-        // If the menu is visible, pause the game
         if (isVisible) {
-            Time.timeScale = 0f; // Pause the game
-            Cursor.lockState = CursorLockMode.None; // Unlock the cursor
-            Cursor.visible = true; // Make the cursor visible
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else {
-            Time.timeScale = 1f; // Resume the game
-            Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
-            Cursor.visible = false; // Hide the cursor
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 

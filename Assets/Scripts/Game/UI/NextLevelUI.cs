@@ -14,7 +14,10 @@ public class NextLevelUI : MonoBehaviour {
 
     public void ShowNextLevelUI() {
         gameObject.SetActive(true);
-        //ToggleMenu();
+        
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         if (SceneManager.GetActiveScene().name == "Level1") {
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
@@ -76,22 +79,6 @@ public class NextLevelUI : MonoBehaviour {
 
     public void BackToMainMenu() {
         SceneManager.LoadScene("Menu");
-    }
-
-    public void ToggleMenu() {
-        bool isVisible = !gameObject.activeSelf;
-        gameObject.SetActive(isVisible);
-
-        if (isVisible) {
-            Time.timeScale = 0f;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else {
-            Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
     }
 
     public void SelectLevelOne() => SceneManager.LoadScene("Level1");

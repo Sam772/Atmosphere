@@ -97,7 +97,7 @@ public class EnemyController : MonoBehaviour, ICharacter {
     public void ChasePlayer() {
         _agent.SetDestination(_player.position);
 
-        Debug.Log("I can see the player.");
+        //Debug.Log("I can see the player.");
     }
 
     public void AttackPlayer() {
