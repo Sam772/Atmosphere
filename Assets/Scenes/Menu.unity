@@ -613,7 +613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &66817967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8401,7 +8401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &990443213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8449,7 +8449,7 @@ MonoBehaviour:
   _levelTwoComplete: {fileID: 2050961116}
   _levelThreeLock: {fileID: 850496051}
   _levelThreeUnlock: {fileID: 352343136}
-  _levelThreeComplete: {fileID: 0}
+  _levelThreeComplete: {fileID: 1002195217}
   _levelFourLock: {fileID: 88569673}
   _levelFourUnlock: {fileID: 603558723}
   _levelFourComplete: {fileID: 647909811}

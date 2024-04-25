@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameSettings : MonoBehaviour {
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    [SerializeField] private Button _minimapToggle;
+    [SerializeField] private RawImage _minimap;
+    [SerializeField] private Image _minimapBackground;
+
+    void Start() {
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void ToggleMap() {
+        _minimap.gameObject.SetActive(!_minimap.gameObject.activeSelf);
+        _minimapBackground.gameObject.SetActive(!_minimapBackground.gameObject.activeSelf);
+    }
+
+    void Update() {
         
     }
 }

@@ -23,18 +23,22 @@ public class NextLevelUI : MonoBehaviour {
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
             _levelCompletionText.text = SceneManager.GetActiveScene().name + " complete";
             SaveData.Current.Level1Complete = true;
+            SaveData.Current.Level2Unlocked = true;
             OverwriteSaveData();
         } else if (SceneManager.GetActiveScene().name == "Level2") {
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
             SaveData.Current.Level2Complete = true;
+            SaveData.Current.Level3Unlocked = true;
             OverwriteSaveData();
         } else if (SceneManager.GetActiveScene().name == "Level3") {
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
             SaveData.Current.Level3Complete = true;
+            SaveData.Current.Level4Unlocked = true;
             OverwriteSaveData();
         } else if (SceneManager.GetActiveScene().name == "Level4") {
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
             SaveData.Current.Level4Complete = true;
+            SaveData.Current.Level5Unlocked = true;
             OverwriteSaveData();
         } else if (SceneManager.GetActiveScene().name == "Level5") {
             Debug.Log("Current Scene Name: " + SceneManager.GetActiveScene().name);
