@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour, ICharacter {
     [SerializeField] private Material _playerRunMat;
     private bool _isGrounded;
 
+    [SerializeField] private PlayerUI _playerUI;
+    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private float _respawnValue;
+
     public int Diamonds => SaveData.Current.Diamonds;
     public int Lapis => SaveData.Current.Lapis;
     public int Lives => SaveData.Current.Lives;
@@ -30,6 +34,18 @@ public class PlayerController : MonoBehaviour, ICharacter {
         HandleJumping();
         RotateToGround();
         ApplyGravity();
+
+        if (gameObject.transform.position.y < -_respawnValue) {
+            RespawnPlayer();
+        }
+    }
+
+    void RespawnPlayer() {
+        transform.position = _spawnPoint.position;
+        
+        SaveData.Current.Lives -= 1;
+
+        _playerUI.SetLivesText("x" + SaveData.Current.Lives.ToString());
     }
 
     void HandleMovement() {
