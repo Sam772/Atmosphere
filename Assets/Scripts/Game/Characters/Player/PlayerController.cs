@@ -44,8 +44,15 @@ public class PlayerController : MonoBehaviour, ICharacter {
         transform.position = _spawnPoint.position;
         
         SaveData.Current.Lives -= 1;
-
         _playerUI.SetLivesText("x" + SaveData.Current.Lives.ToString());
+
+        if (SaveData.Current.Lives <= 0) {
+            _playerUI.DisplayGameOver();
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
     }
 
     void HandleMovement() {

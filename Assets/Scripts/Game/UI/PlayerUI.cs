@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour {
     [SerializeField] private Text _lapisText;
     [SerializeField] private Text _livesText;
     [SerializeField] private InGameMenu _inGameMenu;
+    [SerializeField] private GameOver _gameOver;
 
     void Start() {
         GetPlayerData();
@@ -42,6 +43,12 @@ public class PlayerUI : MonoBehaviour {
 
     public void SetLivesText(string livesText) {
         _livesText.text = livesText;
+    }
+
+    public void DisplayGameOver() {
+        _gameOver.gameObject.SetActive(true);
+
+        SaveData.Current.Lives = 3;
     }
 
     public void ToggleMenu() {
