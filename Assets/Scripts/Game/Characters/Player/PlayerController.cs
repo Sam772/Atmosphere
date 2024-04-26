@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, ICharacter {
     private readonly float _moveSpeed = 10f;
-    private readonly float _jumpForce = 14f;
+    private readonly float _jumpForce = 12f;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private Rigidbody _rigidBody;
@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour, ICharacter {
     [SerializeField] private Material _playerIdleMat;
     [SerializeField] private Material _playerRunMat;
     private bool _isGrounded;
+    private int _consecutiveJumps = 0;
+    private const int MaxConsecutiveJumps = 2;
 
     [SerializeField] private PlayerUI _playerUI;
     [SerializeField] private Transform _spawnPoint;
@@ -30,6 +32,8 @@ public class PlayerController : MonoBehaviour, ICharacter {
 
         void Update() {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, 0.1f, _groundLayer);
+        Debug.Log("Is Grounded: " + _isGrounded);
+
         HandleMovement();
         HandleJumping();
         RotateToGround();
@@ -65,8 +69,18 @@ public class PlayerController : MonoBehaviour, ICharacter {
     }
 
     void HandleJumping() {
-        if (_isGrounded && Input.GetButtonDown("Jump")) {
+        if (_isGrounded) {
+            _consecutiveJumps = 0;
+        }
+
+        if (_consecutiveJumps < MaxConsecutiveJumps && Input.GetButtonDown("Jump")) {
             _rigidBody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _consecutiveJumps++;
+            _isGrounded = false;
+        }
+
+        if (!_isGrounded && Physics.CheckSphere(_groundCheck.position, 0.1f, _groundLayer)) {
+            _isGrounded = true;
         }
     }
 
