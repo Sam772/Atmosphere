@@ -31,4 +31,9 @@ public class SaveData {
     public bool Level4Complete = false;
     public bool Level5Unlocked = false;
     public bool Level5Complete = false;
+
+    // Preferences
+    public bool IsFullscreen = false;
+    public float Volume = 10f;
+    public int ResolutionIndex = 0;
 }
