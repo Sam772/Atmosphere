@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour {
     [SerializeField] private MainMenuScreen _mainMenuScreen;
     [SerializeField] private YourStatsScreen _yourStatsScreen;
     [SerializeField] private SettingsScreen _settingsScreen;
+    [SerializeField] private ControlsScreen _controlsScreen;
     [SerializeField] private LevelSelectScreen _levelSelectScreen;
     private MenuScreen _currentScreen;
     [SerializeField] private AudioSource _audioSource;
@@ -26,6 +27,7 @@ public class Menu : MonoBehaviour {
         _yourStatsScreen.Setup(this);
         _settingsScreen.Setup(this);
         _levelSelectScreen.Setup(this);
+        _controlsScreen.Setup(this);
     }
 
 
@@ -45,6 +47,7 @@ public class Menu : MonoBehaviour {
     public void ShowYourStatsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_yourStatsScreen)));
     public void ShowSettingsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_settingsScreen)));
     public void ShowLevelSelectScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_levelSelectScreen)));
+    public void ShowControlsScreen() => StartCoroutine(PlayButtonSFX(() => ShowScreen(_controlsScreen)));
 
     private void ShowScreen(MenuScreen screen) {
         if (_currentScreen == screen) return;
@@ -56,6 +59,7 @@ public class Menu : MonoBehaviour {
         if (screen != _yourStatsScreen) _yourStatsScreen.Hide();
         if (screen != _settingsScreen) _settingsScreen.Hide();
         if (screen != _levelSelectScreen) _levelSelectScreen.Hide();
+        if (screen != _controlsScreen) _controlsScreen.Hide();
 
         screen.Show();
         _currentScreen = screen;

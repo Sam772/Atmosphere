@@ -5,7 +5,7 @@ using TMPro;
 using System.IO;
 using UnityEngine.UI;
 
-public class CreateFileScreen  : MenuScreen {
+public class CreateFileScreen : MenuScreen {
 
     public InputField saveName;
     public SaveFileName SaveFileName;
