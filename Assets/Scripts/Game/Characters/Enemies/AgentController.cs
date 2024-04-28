@@ -17,11 +17,18 @@ public class AgentController : MonoBehaviour  {
 	private int speedHashId;
 	private int attackingHashId;
 
+    // EXTRAS
+    private int _BisWalkingHash;
+    private int _BisAttackingHash;
+
 	void Awake() {
 		speedHashId = Animator.StringToHash("walkingSpeed");
 		attackingHashId = Animator.StringToHash("Attack");
 		navMeshAgent = GetComponent<NavMeshAgent>();
 		animController = GetComponent<Animator>();
+
+        _BisWalkingHash = Animator.StringToHash("BisWalking");
+        _BisAttackingHash = Animator.StringToHash("BisAttacking");
 
 		if (waypoints.Length == 0)  {
 			Debug.LogError("Error: list of waypoints is empty.");
@@ -75,27 +82,32 @@ public class AgentController : MonoBehaviour  {
 
 	void Chase() {
 		navMeshAgent.stoppingDistance = 1.5f;
-		Attack();
-		navMeshAgent.SetDestination (target.position);
+		navMeshAgent.SetDestination(target.position);
 		timeSinceLastSeenTarget += Time.deltaTime;
-		if (IsAwareOfTarget())
+
+		bool BisWalking = animController.GetBool(_BisWalkingHash);
+
+		if (IsAwareOfTarget()) {
 			timeSinceLastSeenTarget = 0;
+		}
+
 		if (timeSinceLastSeenTarget > timePursuingTarget) {
 			Idle();
-		}
-		else if (RemainingDistance() <= navMeshAgent.stoppingDistance) {
+		} else if (RemainingDistance() <= navMeshAgent.stoppingDistance) {
 			navMeshAgent.isStopped = true;
-			animController.SetFloat (speedHashId, 0.0f);
-			RoateTowardsTarget();
-		}
-		else  {
+			animController.SetFloat(speedHashId, 0.0f);
+			RotateTowardsTarget();
+		} else  {
 			navMeshAgent.isStopped = false;
-			animController.SetFloat (speedHashId, 1.0f);
+			animController.SetFloat(speedHashId, 1.0f);
+			animController.SetBool(_BisWalkingHash, true);
+
+			Attack();
 		}
 	}
 
-	void RoateTowardsTarget() {
-		Vector3 planarDifference = (target.position - transform.position);
+	void RotateTowardsTarget() {
+		Vector3 planarDifference = target.position - transform.position;
 		planarDifference.y = 0;
 		Quaternion targetRotation = Quaternion.LookRotation(planarDifference.normalized);
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -110,19 +122,26 @@ public class AgentController : MonoBehaviour  {
 	void Attack() {
 		if (ShouldAttack()) {
 			animController.SetTrigger(attackingHashId);
+
+			bool BisAttacking = animController.GetBool(_BisAttackingHash);
+
+			animController.SetBool(_BisAttackingHash, true);
+		} else {
+			
+			animController.SetBool(_BisAttackingHash, false);
 		}
 	}
 
 	void Idle() {
 		navMeshAgent.isStopped = true;
-		animController.SetFloat (speedHashId, 0.0f);
+		animController.SetFloat(speedHashId, 0.0f);
 	}
 
 	void Patrol() {
 		navMeshAgent.isStopped = false;
 		navMeshAgent.stoppingDistance = 0;
 
-		animController.SetFloat (speedHashId, 1.0f);
+		animController.SetFloat(speedHashId, 1.0f);
 
 		if (navMeshAgent.remainingDistance < distanceToStartHeadingToNextWaypoint) {
 			waypointId = (waypointId + 1) % waypoints.Length;
