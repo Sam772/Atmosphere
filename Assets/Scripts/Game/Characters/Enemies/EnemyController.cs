@@ -36,44 +36,49 @@ public class EnemyController : MonoBehaviour, ICharacter {
     private bool _playerInAttackRange;
 
 
+    // new
     [SerializeField] private Animator _enemyAnimator;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private EnemyState _enemyState;
     [SerializeField] private Transform[] _enemyWaypoints;
+    private int _BisWalkingHash;
+    private int _BisAttackingHash;
 
     void Awake() {
         _player = GameObject.Find("PlayerCharacter").transform;
         _agent = GetComponent<NavMeshAgent>();
+
         _enemyAnimator = GetComponent<Animator>();
+        _BisWalkingHash = Animator.StringToHash("BisWalking");
+        _BisAttackingHash = Animator.StringToHash("BisAttacking");
     }
 
     void Start() {
         if (_player == null) {
             _player = GameObject.FindGameObjectWithTag("Player").transform;
         }
+
+        _enemyState = EnemyState.IDLE;
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.B)) {
-            _enemyAnimator.SetBool("BisWalking", true);
-        }
 
-        // switch(_enemyState) {
-        //     case EnemyState.IDLE:
-        //         Idling();
-        //         break;
-        //     case EnemyState.PATROLLING:
-        //         Patrolling();
-        //         break;
-        //     case EnemyState.CHASINGPLAYER:
-        //         ChasePlayer();
-        //         break;
-        //     case EnemyState.ATTACKINGPLAYER:
-        //         AttackPlayer();
-        //         break;
-        //     default:
-        //         break;
-        // }
+        switch(_enemyState) {
+            case EnemyState.IDLE:
+                Idling();
+                break;
+            case EnemyState.PATROLLING:
+                Patrolling();
+                break;
+            case EnemyState.CHASINGPLAYER:
+                ChasePlayer();
+                break;
+            case EnemyState.ATTACKINGPLAYER:
+                AttackPlayer();
+                break;
+            default:
+                break;
+        }
 
 
         // _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
@@ -98,21 +103,44 @@ public class EnemyController : MonoBehaviour, ICharacter {
     }
 
     void Idling() {
-
+        _enemyState = EnemyState.PATROLLING;
     }
 
     public void Patrolling() {
-        if (!_walkPointSet) SearchWalkPoint();
+        bool BisWalking = _enemyAnimator.GetBool(_BisWalkingHash);
+        bool BisAttacking = _enemyAnimator.GetBool(_BisAttackingHash);
+        bool forwardWalkAnim = Input.GetKey("b");
+        bool attackAnim = Input.GetKey("n");
 
-        if (_walkPointSet) {
-            _agent.SetDestination(_walkPoint);
+        if (!BisWalking && forwardWalkAnim) {
+            _enemyAnimator.SetBool(_BisWalkingHash, true);
         }
 
-        Vector3 distanceToWalkPoint = transform.position - _walkPoint;
-
-        if (distanceToWalkPoint.magnitude < 1f) {
-            _walkPointSet = false;
+        if (BisWalking && !forwardWalkAnim) {
+            _enemyAnimator.SetBool(_BisWalkingHash, false);
         }
+
+        if (!BisAttacking && forwardWalkAnim && attackAnim) {
+            _enemyAnimator.SetBool(_BisAttackingHash, true);
+        }
+
+        if (BisAttacking && !forwardWalkAnim || !attackAnim) {
+            _enemyAnimator.SetBool(_BisAttackingHash, false);
+        }
+
+
+
+        // if (!_walkPointSet) SearchWalkPoint();
+
+        // if (_walkPointSet) {
+        //     _agent.SetDestination(_walkPoint);
+        // }
+
+        // Vector3 distanceToWalkPoint = transform.position - _walkPoint;
+
+        // if (distanceToWalkPoint.magnitude < 1f) {
+        //     _walkPointSet = false;
+        // }
     }
 
     public void SearchWalkPoint() {
