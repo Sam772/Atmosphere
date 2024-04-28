@@ -4,6 +4,13 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyState {
+    IDLE = 0,
+    PATROLLING = 1,
+    CHASINGPLAYER = 2,
+    ATTACKINGPLAYER = 3
+}
+
 public class EnemyController : MonoBehaviour, ICharacter {
     [SerializeField] private float _moveSpeed;
     //[SerializeField] private float _attackRange;
@@ -12,9 +19,7 @@ public class EnemyController : MonoBehaviour, ICharacter {
     private bool canAttack = true;
 
 
-    // ---------------------------
-
-    [SerializeField] private NavMeshAgent _agent;
+    // Ai Stuff
     [SerializeField] private Transform _player;
     [SerializeField] private LayerMask _whatIsGround;
     [SerializeField] private LayerMask _whatIsPlayer;
@@ -25,36 +30,59 @@ public class EnemyController : MonoBehaviour, ICharacter {
 
     [SerializeField] private float _timeBetweenAttacks;
     private bool _alreadyAttacked;
-
     [SerializeField] private float _sightRange;
     [SerializeField] private float _attackRange;
     private bool _playerInSightRange;
     private bool _playerInAttackRange;
 
-    [SerializeField] private GameObject _projectile;
 
-    // ---------------------------
+    [SerializeField] private Animator _enemyAnimator;
+    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private EnemyState _enemyState;
+    [SerializeField] private Transform[] _enemyWaypoints;
 
     void Awake() {
         _player = GameObject.Find("PlayerCharacter").transform;
         _agent = GetComponent<NavMeshAgent>();
+        _enemyAnimator = GetComponent<Animator>();
     }
 
     void Start() {
-        // rb = GetComponent<Rigidbody>();
-
-        // if (_player == null)
-        //     _player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     void Update() {
+        if (Input.GetKeyDown(KeyCode.B)) {
+            _enemyAnimator.SetBool("BisWalking", true);
+        }
 
-        _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
-        _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, _whatIsPlayer);
+        // switch(_enemyState) {
+        //     case EnemyState.IDLE:
+        //         Idling();
+        //         break;
+        //     case EnemyState.PATROLLING:
+        //         Patrolling();
+        //         break;
+        //     case EnemyState.CHASINGPLAYER:
+        //         ChasePlayer();
+        //         break;
+        //     case EnemyState.ATTACKINGPLAYER:
+        //         AttackPlayer();
+        //         break;
+        //     default:
+        //         break;
+        // }
 
-        if (!_playerInSightRange && !_playerInAttackRange) Patrolling();
-        if (_playerInSightRange && !_playerInAttackRange) ChasePlayer();
-        if (_playerInAttackRange && _playerInSightRange) AttackPlayer();
+
+        // _playerInSightRange = Physics.CheckSphere(transform.position, _sightRange, _whatIsPlayer);
+        // _playerInAttackRange = Physics.CheckSphere(transform.position, _attackRange, _whatIsPlayer);
+
+
+        // if (!_playerInSightRange && !_playerInAttackRange) Patrolling();
+        // if (_playerInSightRange && !_playerInAttackRange) ChasePlayer();
+        // if (_playerInAttackRange && _playerInSightRange) AttackPlayer();
 
         // Vector3 direction = (_player.position - transform.position).normalized;
         // rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
@@ -67,6 +95,10 @@ public class EnemyController : MonoBehaviour, ICharacter {
         //         Invoke("ResetAttackCooldown", attackCooldown);
         //     }
         // }
+    }
+
+    void Idling() {
+
     }
 
     public void Patrolling() {

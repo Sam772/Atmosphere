@@ -10,8 +10,7 @@ public class Lapis : Collectable, IEntity {
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             OnCollectedLapis?.Invoke();
-            // ScoreManager.instance.AddScore(_scoreValue);
-            // CollectableSFX();
+            CollectableSFX();
             Destroy(gameObject);
         }
     }

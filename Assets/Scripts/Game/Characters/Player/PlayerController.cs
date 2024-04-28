@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, ICharacter {
     private readonly float _moveSpeed = 10f;
-    private readonly float _jumpForce = 10f;
+    private readonly float _jumpForce = 13f;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private Rigidbody _rigidBody;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour, ICharacter {
         
         _isGrounded = Physics.CheckSphere(_groundCheck.position, 0.1f, _groundLayer);
         
-        Debug.Log("Is Grounded: " + _isGrounded);
+        // Debug.Log("Is Grounded: " + _isGrounded);
 
         HandleMovement();
         HandleJumping();
