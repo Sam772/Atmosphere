@@ -40,6 +40,14 @@ public class NPCDialogue : MonoBehaviour {
         _npcDialogueBoxBorderBottom.gameObject.SetActive(true);
         _npcDialogueBoxBorderLeft.gameObject.SetActive(true);
         _npcDialogueBoxBorderRight.gameObject.SetActive(true);
+
+        if (gameObject.name == "NPCSpecial1") {
+            NPC1Special();
+        } else if (gameObject.name == "NPCSpecial2") {
+            NPC2Special();
+        } else {
+            Debug.Log("I am a regular npc");
+        }
     }
 
     private void HideDialogue() {
@@ -49,6 +57,23 @@ public class NPCDialogue : MonoBehaviour {
         _npcDialogueBoxBorderBottom.gameObject.SetActive(false);
         _npcDialogueBoxBorderLeft.gameObject.SetActive(false);
         _npcDialogueBoxBorderRight.gameObject.SetActive(false);
+    }
+
+    private void NPC1Special() {
+        GameObject area3 = GameObject.Find("Area 3");
+
+        if (area3 != null) {
+            Transform hiddenTransform = area3.transform.Find("Entities/Hidden1");
+
+            if (hiddenTransform != null) {
+                GameObject hiddenObject = hiddenTransform.gameObject;
+                hiddenObject.SetActive(true);
+            }
+        }
+    }
+
+    private void NPC2Special() {
+    
     }
 }
 
