@@ -11,14 +11,13 @@ public class Diamond : Collectable, IEntity {
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             OnCollectedDiamond?.Invoke();
+            CollectableSFX();
             Destroy(gameObject);
         }
     }
 
     public void CollectableSFX() {
         AudioSource.PlayClipAtPoint(_collectableSound, transform.position);
-    }
-
-    // Collectable implementation   
+    }  
 }
 

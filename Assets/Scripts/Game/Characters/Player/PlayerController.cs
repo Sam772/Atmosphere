@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour, ICharacter {
     [SerializeField] private PlayerUI _playerUI;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _respawnValue;
+    [SerializeField] private AudioSource _moveSound;
+    [SerializeField] private AudioSource _jumpSound;
 
     public int Diamonds => SaveData.Current.Diamonds;
     public int Lapis => SaveData.Current.Lapis;
@@ -70,9 +72,13 @@ public class PlayerController : MonoBehaviour, ICharacter {
         _rigidBody.velocity = new Vector3(moveVelocity.x, _rigidBody.velocity.y, moveVelocity.z);
 
         if (moveDirection.magnitude > 0) {
+            if (!_moveSound.isPlaying) {
+                _moveSound.Play();
+            }
             _renderer.material = _playerRunMat;
         } else {
             _renderer.material = _playerIdleMat;
+            _moveSound.Stop();
         }
     }
 
@@ -82,6 +88,7 @@ public class PlayerController : MonoBehaviour, ICharacter {
         }
 
         if (_consecutiveJumps < MaxConsecutiveJumps && Input.GetButtonDown("Jump")) {
+            _jumpSound.Play();
             _rigidBody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _consecutiveJumps++;
             _isGrounded = false;
