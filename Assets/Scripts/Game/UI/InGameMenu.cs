@@ -1,28 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class InGameMenu : MonoBehaviour {
-
     [SerializeField] private InGameSettings _inGameSettings;
     [SerializeField] private PlayerUI _playerUI;
+    [SerializeField] private AudioSource _audioSource;
 
     void Start() {
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayButtonSFX(Action callback) {
+        _audioSource.Play();
+
+        while (_audioSource.isPlaying) yield return null;
+
+        callback?.Invoke();
     }
 
     public void ShowSettings() {
         _inGameSettings.gameObject.SetActive(true);
     }
 
+    public void ShowSettingsButton() => StartCoroutine(PlayButtonSFX(() => ShowSettings()));
+
     public void HideSettings() {
         _inGameSettings.gameObject.SetActive(false);
     }
 
+    public void HideSettingsButton() => StartCoroutine(PlayButtonSFX(() => HideSettings()));
+
     public void BackToMainMenu() {
         SceneManager.LoadScene("Menu");
     }
+
+    public void ShowBackStartScreen() => StartCoroutine(PlayButtonSFX(() => BackToMainMenu()));
 
     public void CreateSaveData() {
 
@@ -37,6 +52,8 @@ public class InGameMenu : MonoBehaviour {
             Debug.Log("Lapis: " + SaveData.Current.Lapis);
         }
     }
+
+    public void ShowCreateSaveData() => StartCoroutine(PlayButtonSFX(() => CreateSaveData()));
 
     public void LoadSaveData() {
 
@@ -59,7 +76,11 @@ public class InGameMenu : MonoBehaviour {
         }
     }
 
+    public void ShowLoadSaveData() => StartCoroutine(PlayButtonSFX(() => LoadSaveData()));
+
     public void ExitGame() {
         Application.Quit();
     }
+
+    public void ShowExitGame() => StartCoroutine(PlayButtonSFX(() => ExitGame()));
 }

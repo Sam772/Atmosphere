@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,6 +11,7 @@ public class PlayerUI : MonoBehaviour {
     [SerializeField] private Text _livesText;
     [SerializeField] private InGameMenu _inGameMenu;
     [SerializeField] private GameOver _gameOver;
+    [SerializeField] private AudioSource _audioSource;
 
     void Start() {
         GetPlayerData();
@@ -19,6 +21,14 @@ public class PlayerUI : MonoBehaviour {
         Cursor.visible = true;
         
         _inGameMenu.gameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayButtonSFX(Action callback) {
+        _audioSource.Play();
+
+        while (_audioSource.isPlaying) yield return null;
+
+        callback?.Invoke();
     }
 
     public void GetPlayerData() {

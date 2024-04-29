@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour {
 
+    [SerializeField] private AudioSource _audioSource;
+
     void Start() {
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayButtonSFX(Action callback) {
+        _audioSource.Play();
+
+        while (_audioSource.isPlaying) yield return null;
+
+        callback?.Invoke();
     }
 
     public void BackToMainMenu() {
         ResetLives();
         SceneManager.LoadScene("Menu");
     }
+
+    public void ShowBackToMainMenu() => StartCoroutine(PlayButtonSFX(() => BackToMainMenu()));
 
     public void ResetLives() {
         //SerializationManager.Save("savefile", SaveData.Current);

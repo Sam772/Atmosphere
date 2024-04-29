@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,18 @@ using UnityEngine.SceneManagement;
 public class NextLevelUI : MonoBehaviour {
 
     [SerializeField] private Text _levelCompletionText;
+    [SerializeField] private AudioSource _audioSource;
 
     void Start() {
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayButtonSFX(Action callback) {
+        _audioSource.Play();
+
+        while (_audioSource.isPlaying) yield return null;
+
+        callback?.Invoke();
     }
 
     public void ShowNextLevelUI() {
@@ -64,6 +74,8 @@ public class NextLevelUI : MonoBehaviour {
         }
     }
 
+    public void ShowOverwriteSaveData() => StartCoroutine(PlayButtonSFX(() => OverwriteSaveData()));
+
     public void LoadSaveData() {
 
         SaveFileName saveFileNameHolder = FindObjectOfType<SaveFileName>();
@@ -81,9 +93,13 @@ public class NextLevelUI : MonoBehaviour {
         }
     }
 
+    public void ShowLoadSaveData() => StartCoroutine(PlayButtonSFX(() => LoadSaveData()));
+
     public void BackToMainMenu() {
         SceneManager.LoadScene("Menu");
     }
+
+    public void ShowBackToMainMenu() => StartCoroutine(PlayButtonSFX(() => BackToMainMenu()));
 
     public void SelectLevelOne() => SceneManager.LoadScene("Level1");
 
@@ -100,6 +116,8 @@ public class NextLevelUI : MonoBehaviour {
             SerializationManager.Save(saveFileName, SaveData.Current);
         }
     }
+
+    public void ShowSelectLevelTwo() => StartCoroutine(PlayButtonSFX(() => SelectLevelTwo()));
     
     public void SelectLevelThree() {
         SceneManager.LoadScene("Level3");
@@ -115,6 +133,8 @@ public class NextLevelUI : MonoBehaviour {
         }
     }
 
+    public void ShowSelectLevelThree() => StartCoroutine(PlayButtonSFX(() => SelectLevelThree()));
+
     public void SelectLevelFour() {
         SceneManager.LoadScene("Level4");
         SaveData.Current.Level4Unlocked = true;
@@ -129,6 +149,8 @@ public class NextLevelUI : MonoBehaviour {
         }
     }
 
+    public void ShowSelectLevelFour() => StartCoroutine(PlayButtonSFX(() => SelectLevelFour()));
+
     public void SelectLevelFive() {
         SceneManager.LoadScene("Level5");
         SaveData.Current.Level5Unlocked = true;
@@ -142,4 +164,6 @@ public class NextLevelUI : MonoBehaviour {
             SerializationManager.Save(saveFileName, SaveData.Current);
         }
     }
+
+    public void ShowSelectLevelFive() => StartCoroutine(PlayButtonSFX(() => SelectLevelFive()));
 }
