@@ -41,12 +41,16 @@ public class NPCDialogue : MonoBehaviour {
         _npcDialogueBoxBorderLeft.gameObject.SetActive(true);
         _npcDialogueBoxBorderRight.gameObject.SetActive(true);
 
-        if (gameObject.name == "NPCSpecial1") {
-            NPC1Special();
-        } else if (gameObject.name == "NPCSpecial2") {
-            NPC2Special();
-        } else {
-            Debug.Log("I am a regular npc");
+        switch(gameObject.name) {
+            case "NPCSpecial1":
+                NPC1Special();
+                break;
+            case "NPCSpecial2":
+                NPC2Special();
+                break;
+            default:
+                Debug.Log("I am a regular NPC.");
+                break;
         }
     }
 
