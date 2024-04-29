@@ -43,7 +43,7 @@ public class NPCDialogue : MonoBehaviour {
 
         switch(gameObject.name) {
             case "NPCSpecial1":
-                NPC1Special();
+                StartCoroutine(NPC1Special());
                 break;
             case "NPCSpecial2":
                 NPC2Special();
@@ -63,7 +63,10 @@ public class NPCDialogue : MonoBehaviour {
         _npcDialogueBoxBorderRight.gameObject.SetActive(false);
     }
 
-    private void NPC1Special() {
+    private IEnumerator NPC1Special() {
+
+        yield return new WaitForSeconds(1f);
+
         GameObject area3 = GameObject.Find("Area 3");
 
         if (area3 != null) {
