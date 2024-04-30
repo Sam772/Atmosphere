@@ -2146,11 +2146,13 @@ MonoBehaviour:
   _renderer: {fileID: 1242849610766392272}
   _playerIdleMat: {fileID: 2100000, guid: c3c1c94deac5b55408202061d8740807, type: 2}
   _playerRunMat: {fileID: 2100000, guid: 75e3c939c4368fc4ca1eee6d942459b8, type: 2}
+  _playerDamageMat: {fileID: 2100000, guid: 9bc14bcb5de1988468b5af08f7428fc2, type: 2}
   _playerUI: {fileID: 1242849609520126261}
   _spawnPoint: {fileID: 0}
   _respawnValue: 30
   _moveSound: {fileID: 1242849609751947182}
   _jumpSound: {fileID: 1242849609751947183}
+  SoulSystem: {fileID: 1242849610026441273}
 --- !u!82 &1242849609751947182
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3142,6 +3144,7 @@ MonoBehaviour:
   - {fileID: 1242849609877821184}
   _fullSoul: {fileID: 21300000, guid: 84e31f695883bec408d1eef6942b214d, type: 3}
   _emptySoul: {fileID: 21300000, guid: 3074a63332320b640a57fd89570f214c, type: 3}
+  _player: {fileID: 1242849609751947178}
 --- !u!1 &1242849610056922935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5993,11 +5996,13 @@ MonoBehaviour:
   _renderer: {fileID: 1242849610766392272}
   _playerIdleMat: {fileID: 2100000, guid: c3c1c94deac5b55408202061d8740807, type: 2}
   _playerRunMat: {fileID: 2100000, guid: 75e3c939c4368fc4ca1eee6d942459b8, type: 2}
+  _playerDamageMat: {fileID: 0}
   _playerUI: {fileID: 1242849609520126261}
   _spawnPoint: {fileID: 0}
   _respawnValue: 30
   _moveSound: {fileID: 0}
   _jumpSound: {fileID: 0}
+  SoulSystem: {fileID: 0}
 --- !u!95 &1242849610766392273
 Animator:
   serializedVersion: 3

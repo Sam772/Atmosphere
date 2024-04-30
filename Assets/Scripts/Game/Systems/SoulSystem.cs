@@ -11,6 +11,7 @@ public class SoulSystem : MonoBehaviour {
     [SerializeField] private Image[] _souls;
     [SerializeField] private Sprite _fullSoul;
     [SerializeField] private Sprite _emptySoul;
+    [SerializeField] private PlayerController _player;
 
     void Start() {
         _currentSouls = _maxSouls;
@@ -34,11 +35,10 @@ public class SoulSystem : MonoBehaviour {
                 _souls[i].enabled = false;
             }
         }
+    }
 
-        // FOR TESTING REFLECTION ONTO THE UI
-        if (Input.GetKeyDown(KeyCode.X)) {
-            _currentSouls -= 1;
-        }
+    public void ResetSouls() {
+        _currentSouls = _maxSouls;
     }
 
     public void TakeDamage() {
@@ -56,8 +56,8 @@ public class SoulSystem : MonoBehaviour {
 
     void Die() {
         Debug.Log("Player died!");
-
-        // Respawn the player
+        _player.RespawnPlayer();
+        ResetSouls();
     }
 }
 

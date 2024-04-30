@@ -20,6 +20,7 @@ public class AgentController : MonoBehaviour  {
     // EXTRAS
     private int _BisWalkingHash;
     private int _BisAttackingHash;
+	[SerializeField] private AudioSource _damageSound;
 
 	void Awake() {
 		speedHashId = Animator.StringToHash("walkingSpeed");
@@ -32,7 +33,7 @@ public class AgentController : MonoBehaviour  {
 
 		if (waypoints.Length == 0)  {
 			Debug.LogError("Error: list of waypoints is empty.");
-			GameObject.Destroy(gameObject);
+			Destroy(gameObject);
 			return;
 		}
 	}
@@ -127,9 +128,18 @@ public class AgentController : MonoBehaviour  {
 
 			animController.SetBool(_BisAttackingHash, true);
 		} else {
-			
+
 			animController.SetBool(_BisAttackingHash, false);
 		}
+	}
+
+	void OnCollisionEnter(Collision collision) {
+    	if (collision.gameObject.CompareTag("Player")) {
+			PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+			_damageSound.PlayOneShot(_damageSound.clip);
+			player.SoulSystem.TakeDamage();
+			player.TakingDamage();
+    	}
 	}
 
 	void Idle() {

@@ -12,9 +12,13 @@ public class PlayerController : MonoBehaviour, ICharacter {
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Material _playerIdleMat;
     [SerializeField] private Material _playerRunMat;
+    [SerializeField] private Material _playerDamageMat;
     private bool _isGrounded;
     private int _consecutiveJumps = 0;
     private const int MaxConsecutiveJumps = 2;
+    private bool _isInvincible = false;
+    private float _invincibilityDuration = 2f;
+    private float _invincibilityTimer = 0f;
 
     [SerializeField] private PlayerUI _playerUI;
     [SerializeField] private Transform _spawnPoint;
@@ -26,17 +30,30 @@ public class PlayerController : MonoBehaviour, ICharacter {
     public int Lapis => SaveData.Current.Lapis;
     public int Lives => SaveData.Current.Lives;
 
-    // Move health into here later
+    public SoulSystem SoulSystem;
 
     void Start() {
         _rigidBody.freezeRotation = true;
     }
 
-        void Update() {
+    void Update() {
         
         _isGrounded = Physics.CheckSphere(_groundCheck.position, 0.1f, _groundLayer);
         
-        Debug.Log("Is Grounded: " + _isGrounded);
+        //Debug.Log("Is Grounded: " + _isGrounded);
+
+        if (_isInvincible) {
+            _invincibilityTimer -= Time.deltaTime;
+            if (_invincibilityTimer <= 0f) {
+                _isInvincible = false;
+                _renderer.material = _playerIdleMat;
+                _renderer.material.SetColor("_Color", Color.white);
+            } else {
+                float flashIntensity = Mathf.PingPong(Time.time * 5f, 1f);
+                Color flashColor = Color.black;
+                _renderer.material.color = flashColor * flashIntensity;
+            }
+        }
 
         HandleMovement();
         HandleJumping();
@@ -48,7 +65,15 @@ public class PlayerController : MonoBehaviour, ICharacter {
         }
     }
 
-    void RespawnPlayer() {
+    public void TakingDamage() {
+        if (!_isInvincible) {
+            _isInvincible = true;
+            _invincibilityTimer = _invincibilityDuration;
+            _renderer.material = _playerDamageMat;
+        }
+    }
+
+    public void RespawnPlayer() {
         transform.position = _spawnPoint.position;
         
         SaveData.Current.Lives -= 1;
@@ -71,11 +96,14 @@ public class PlayerController : MonoBehaviour, ICharacter {
         Vector3 moveVelocity = transform.TransformDirection(moveDirection) * _moveSpeed;
         _rigidBody.velocity = new Vector3(moveVelocity.x, _rigidBody.velocity.y, moveVelocity.z);
 
-        if (moveDirection.magnitude > 0) {
+        if (moveDirection.magnitude > 0 && !_isInvincible) {
             if (!_moveSound.isPlaying) {
                 _moveSound.Play();
             }
             _renderer.material = _playerRunMat;
+        } else if (_isInvincible) {
+            _renderer.material = _playerDamageMat;
+            _moveSound.Stop();
         } else {
             _renderer.material = _playerIdleMat;
             _moveSound.Stop();
