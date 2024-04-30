@@ -51,11 +51,11 @@ public class SoulSystem : MonoBehaviour {
     }
 
     void UpdateHealthUI() {
-        Debug.Log("Current Health: " + _currentSouls);
+        // Debug.Log("Current Health: " + _currentSouls);
     }
 
     void Die() {
-        Debug.Log("Player died!");
+        // Debug.Log("Player died!");
         _player.RespawnPlayer();
         ResetSouls();
     }

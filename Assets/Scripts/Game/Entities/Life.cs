@@ -16,6 +16,10 @@ public class Life : Collectable, IEntity {
     }
 
     public void CollectableSFX() {
-        AudioSource.PlayClipAtPoint(_collectableSound, transform.position);
+        GameObject audioSourceObject = new GameObject("CollectableSound");
+        AudioSource audioSource = audioSourceObject.AddComponent<AudioSource>();
+        audioSource.volume = 7f;
+        audioSource.PlayOneShot(_collectableSound);
+        Destroy(audioSourceObject, _collectableSound.length);
     }
 }

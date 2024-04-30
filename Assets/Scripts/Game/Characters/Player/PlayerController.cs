@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour, ICharacter {
         
         _isGrounded = Physics.CheckSphere(_groundCheck.position, 0.1f, _groundLayer);
         
-        //Debug.Log("Is Grounded: " + _isGrounded);
+        Debug.Log("Is Grounded: " + _isGrounded);
 
         if (_isInvincible) {
             _invincibilityTimer -= Time.deltaTime;
