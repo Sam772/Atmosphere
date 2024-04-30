@@ -85,7 +85,10 @@ public class PlayerController : MonoBehaviour, ICharacter {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
 
+    public void UpdateRespawnPosition(Transform newPosition) {
+        _spawnPoint = newPosition;
     }
 
     void HandleMovement() {
