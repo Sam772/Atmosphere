@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour, ICharacter {
         SaveData.Current.Lives -= 1;
         _playerUI.SetLivesText("x" + SaveData.Current.Lives.ToString());
 
+        SoulSystem.ResetSouls();
+
         if (SaveData.Current.Lives <= 0) {
             _playerUI.DisplayGameOver();
             Time.timeScale = 0f;
