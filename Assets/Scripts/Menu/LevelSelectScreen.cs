@@ -36,8 +36,14 @@ public class LevelSelectScreen : MenuScreen {
         }
     }
 
-    public void SelectLevelOne() => SceneManager.LoadScene("Level1");
-
+    public void SelectLevelOne() {
+        if (SaveData.Current.ViewedCutscene == false) {
+            SaveData.Current.ViewedCutscene = true;
+            SceneManager.LoadScene("Cutscene");
+        } else {
+            SceneManager.LoadScene("Level1");
+        }
+    }
     public void SetLevelTwoButtonState() {
         if (SaveData.Current.Level2Unlocked == true && SaveData.Current.Level2Complete == true) {
             //_levelTwoButton.gameObject.SetActive(false);
