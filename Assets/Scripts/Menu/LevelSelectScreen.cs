@@ -101,14 +101,20 @@ public class LevelSelectScreen : MenuScreen {
     }
 
     public void SetLevelFourButtonState() {
-        if (SaveData.Current.Level4Unlocked == false) {
-            //_levelFourButton.gameObject.SetActive(false);
-            _levelFourLock.gameObject.SetActive(true);
+        if (SaveData.Current.Level4Unlocked == true && SaveData.Current.Level4Complete == true) {
+            //_levelTwoButton.gameObject.SetActive(false);
+            _levelFourComplete.gameObject.SetActive(true);
+            _levelFourLock.gameObject.SetActive(false);
             _levelFourUnlock.gameObject.SetActive(false);
-        } else {
-            //_levelFourButton.gameObject.SetActive(true);
+        } else if (SaveData.Current.Level4Unlocked == true && SaveData.Current.Level4Complete == false) {
+           //_levelTwoButton.gameObject.SetActive(true);
+            _levelFourComplete.gameObject.SetActive(false);
             _levelFourLock.gameObject.SetActive(false);
             _levelFourUnlock.gameObject.SetActive(true);
+        } else {
+            _levelFourComplete.gameObject.SetActive(false);
+            _levelFourLock.gameObject.SetActive(true);
+            _levelFourUnlock.gameObject.SetActive(false);
         }
     }
     
@@ -123,14 +129,20 @@ public class LevelSelectScreen : MenuScreen {
     }
 
     public void SetLevelFiveButtonState() {
-        if (SaveData.Current.Level5Unlocked == false) {
-            //_levelFiveButton.gameObject.SetActive(false);
-            _levelFiveLock.gameObject.SetActive(true);
+        if (SaveData.Current.Level5Unlocked == true && SaveData.Current.Level5Complete == true) {
+            //_levelTwoButton.gameObject.SetActive(false);
+            _levelFiveComplete.gameObject.SetActive(true);
+            _levelFiveLock.gameObject.SetActive(false);
             _levelFiveUnlock.gameObject.SetActive(false);
-        } else {
-            //_levelFiveButton.gameObject.SetActive(true);
+        } else if (SaveData.Current.Level5Unlocked == true && SaveData.Current.Level5Complete == false) {
+           //_levelTwoButton.gameObject.SetActive(true);
+            _levelFiveComplete.gameObject.SetActive(false);
             _levelFiveLock.gameObject.SetActive(false);
             _levelFiveUnlock.gameObject.SetActive(true);
+        } else {
+            _levelFiveComplete.gameObject.SetActive(false);
+            _levelFiveLock.gameObject.SetActive(true);
+            _levelFiveUnlock.gameObject.SetActive(false);
         }
     }
     
